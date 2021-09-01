@@ -1,0 +1,46 @@
+---
+title: "Loading spatial data in R"
+author: "Matt Williamson"
+date: "9/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Your assignment
+
+The goal for this assignment is to ensure that you:
+- can load different spatial data into R using different packages
+
+- can access the different components of spatial data within R
+
+- can verify projection information and modify to ensure data aligns
+
+- can make simple plots to 'gut check' your data
+- 
+## Step 1: Load your packages
+You'll need the `raster`, `terra`, `sp`, `rgdal`, `sf`, and `tidyverse` packages to complete this assignment. Load them in the code chunk below.
+
+```{r packageload}
+
+```
+
+
+## Step 2: Load polygon data
+
+For the next few weeks, we'll be using data from the High Country News [Land Grab University](https://www.landgrabu.org/) project. These data depict the role of expropriated Indigenous land in funding the fifty-two land-grant universities in the United States. They contain information on nearly 11 million acres of Indigenous land tanke from ~250 tribes, bands and communities through a multitude of treaties and violent land seizures. Check it out as it will help you understand what these data are depicting.
+
+```{r loaddata}
+csv.list <- list.files('/opt/data/session02/CSVs/', pattern = "*.csv", full.names = TRUE)
+data <- lapply(csv.list, function (x) read.csv(x))
+```
+* Question 1: what is `lapply` doing in the statement above?
+
+* Question 2: what type of data is contained in the 3 column of the 2nd element of the `data` object? (show the code you used to figure it out by inserting a code chunk)?
+
+* Question 3: what happens if you run the above code with the the `read_csv` function from the `tidyverse` package?
+
+* Question 4: Use the first element of the `data` object to determine the total amount paid for the land depicted in that object (HINT: you'll need to coerce the data into a different format)
