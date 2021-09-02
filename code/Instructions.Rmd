@@ -8,6 +8,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## The data
+
+One of the other datasets we'll use fairly regulrarly during this class is the United States Protected Areas Database ([PAD-US](https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas)). PAD-US is America’s official national inventory of U.S. terrestrial and marine protected areas that are dedicated to the preservation of biological diversity and to other natural, recreation and cultural uses, managed for these purposes through legal or other effective means. The PADUS provides a lot of interesting information on land tenure arrangements in the US. Ecologists often rely on comparisons to these protected ares to understand the effects of anthropogenic change. Finally, you'll probably have to make a map at some point in your life and these protected areas are often useful tools for helping 'orient' people to the landscape you are mapping. As an additional bonus, the geometries in this dataset can be a real challenge to work with so you'll get a chance to practice some important diagnostics and trouble-shooting.
+
+Speaking of land tenure, the raster dataset we'll use this week comes from the [PLACES lab](https://placeslab.org/places/) at Boston University. This data depict land values across the contiguous United States at a fairly high resolution. The PLACES data was developed to better understand the costs, benefits, and motivaitons for private land conservation. The development and validation of this data is described in this [article](https://www.pnas.org/content/117/47/29577).
 
 
 ## Your assignment
@@ -21,6 +26,7 @@ The goal for this assignment is to ensure that you:
 
 - can make simple plots to 'gut check' your data
 - 
+
 ## Step 1: Load your packages
 You'll need the `raster`, `terra`, `sp`, `rgdal`, `sf`, and `tidyverse` packages to complete this assignment. Load them in the code chunk below.
 
@@ -31,16 +37,13 @@ You'll need the `raster`, `terra`, `sp`, `rgdal`, `sf`, and `tidyverse` packages
 
 ## Step 2: Load polygon data
 
-For the next few weeks, we'll be using data from the High Country News [Land Grab University](https://www.landgrabu.org/) project. These data depict the role of expropriated Indigenous land in funding the fifty-two land-grant universities in the United States. They contain information on nearly 11 million acres of Indigenous land tanke from ~250 tribes, bands and communities through a multitude of treaties and violent land seizures. Check it out as it will help you understand what these data are depicting.
+The data for this lab are in our shared folder (located at `opt/data/session04/`). There are several shapefiles in that folder (denoted by the `.shp` suffix in the file name). Use our approach for finding all of the files that match a given pattern (remember last week) to load all of the shapefiles. You should do this both with `st_read` and `readOGR`. Make sure you assign them to different objects. Add your code to the code chunk below:
 
 ```{r loaddata}
-csv.list <- list.files('/opt/data/session02/CSVs/', pattern = "*.csv", full.names = TRUE)
-data <- lapply(csv.list, function (x) read.csv(x))
+
 ```
-* Question 1: what is `lapply` doing in the statement above?
+__Question 1__: How do the objects created by `st_read` and `readOGR` compare (remember that you can use `[[` to access the individual objects produced by lapply)?
 
-* Question 2: what type of data is contained in the 3 column of the 2nd element of the `data` object? (show the code you used to figure it out by inserting a code chunk)?
+## Step 3: Compare the state and PA polygons
 
-* Question 3: what happens if you run the above code with the the `read_csv` function from the `tidyverse` package?
 
-* Question 4: Use the first element of the `data` object to determine the total amount paid for the land depicted in that object (HINT: you'll need to coerce the data into a different format)
