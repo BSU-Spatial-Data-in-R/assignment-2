@@ -6,7 +6,9 @@ The second part of the course was designed to introduce basic operations with ve
 
 * Use __predicates, measures, and transformations__ to clean, subset, and change vector data
 
-* Alter the resolution, extent, and even data values of rasters
+* Alter the resolution, extent, and data values of rasters
 
 * Build new datasets based on the relations between vector and raster data
+
+We'll be using 
 
