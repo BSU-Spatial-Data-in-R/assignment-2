@@ -35,7 +35,7 @@ For the next few weeks, we'll be using data from the High Country News [Land Gra
 One of the other datasets we'll use fairly regulrarly during this class is the United States Protected Areas Database ([PAD-US](https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas)). PAD-US is America’s official national inventory of U.S. terrestrial and marine protected areas that are dedicated to the preservation of biological diversity and to other natural, recreation and cultural uses, managed for these purposes through legal or other effective means. The PADUS provides a lot of interesting information on land tenure arrangements in the US. Ecologists often rely on comparisons to these protected ares to understand the effects of anthropogenic change. Finally, you'll probably have to make a map at some point in your life and these protected areas are often useful tools for helping 'orient' people to the landscape you are mapping. As an additional bonus, the geometries in this dataset can be a real challenge to work with so you'll get a chance to practice some important diagnostics and trouble-shooting. For this assignment, we have restricted the data to the "Designation" type (i.e., protected via means not requiring Congress) in the Western US.
 
 
-### Load vector data
+### Practicing with vector data
 
 The data for this lab are in our shared folder (located at `/opt/data/2022/assignment02/`). There are several shapefiles in that folder (denoted by the `.shp` suffix in the file name). 
 
@@ -58,5 +58,25 @@ The data for this lab are in our shared folder (located at `/opt/data/2022/assig
 
 We're going to evaluate the current conditions are of the parcels that were sold in and around protected areas using two different raster datasets. The first comes from the [PLACES lab](https://placeslab.org/places/) at Boston University. This data depict land values across the contiguous United States at a fairly high resolution. The PLACES data was developed to better understand the costs, benefits, and motivaitons for private land conservation. The development and validation of this data is described in this [article](https://www.pnas.org/content/117/47/29577). The second is a categorical raster from the National Land Cover Dataset downloaded via the [`FedData`](https://github.com/ropensci/FedData) package. `FedData` downloads the file as a `raster` so you'll need to convert it to a SpatRaster. Similarly, you need to give the `get_nlcd` function a `Spatial` object so you'll need to convert your cropped parcel dataset to a SpatialPolygonsDataframe (using `as(parcelname, "Spatial")`. See the helpfile for more info.
 
+### Practicing with vector data
 
+6. Load the `places_fmv_all.tif` file as a SpatRaster and download the 2019 NLCD for the state with the most parcels (from step 3) data (using `FedData::get_nlcd()`). What CRS are the SpatRasters in? What is their resolution?  How do the extents compare? Show your code.
 
+7. The two rasters don't align. Write out the pseudocode for the steps hyou would take to get them into alignment.
+
+8. Dealing with differing resolutions can be tricky and there are a few options for either upscaling fine resolution data or downscaling coarse resolution data. What are they and what are the benefits/drawbacks of each approach?
+
+9. Based on your answers to number 7 and 8 process the rasters so that their CRS, resolution, and extents align. 
+
+10. We might be concerned about mapping errors in the NLCD dataset (sometimes pixels get misclassified). Let's smooth that layer out by applying a 5x5 moving window. Make sure that you drop the NAs.
+      
+
+## Integrating the two
+
+Now that you have a cropped parcel layer that depicts the parcels that are within 50km of protected areas and two rasters that have the same CRS, resolution, and extent; let's integrate them a bit. 
+
+11. Generate a new SpatRaster depicting the distance from all pixels that are classified as "Evergreen Forest" in the NLCD layer. You'll need to reclassify the smoothed NLCD layer so that all values that aren't "Evergreen Forest" are set to NA and then use `terra::distance` to generate the estimate.
+
+12. Stack the distance raster and the land value raster (you may have to align them a bit). Then extract the mean values for each variable within each of your parcels (from step 5). Remember, that you'll need to make sure the parcels have the same CRS as the stack.
+
+13. Now extract the land cover from your smoothed raster. What is the dominant landcover type of the first 10 parcels in that dataset.  
