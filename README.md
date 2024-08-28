@@ -27,7 +27,7 @@ For the rest of the course, I'll be asking you to use pseudocode to plan your an
 
 ## The Assignment
 
-Find a figure that you'd like to mimic with your research. The figure should be from a manuscript or report and present the results of a quantitative aaalysis (i.e., not a conceptual model or an image). Once you've found one you should:
+Find a figure that you'd like to mimic with your research. The figure should be from a manuscript or report and present the results of a quantitative analysis (i.e., not a conceptual model or an image). Once you've found one you should:
 
 1. Create a section called "Introduction" in your Quarto document. In that section, you should give me the citation for the article and a brief description (similar to the caption) of the figure.
 2. Create a second section called "Methods" and write out the steps necessary to create the figure. These should be similar to the pseudocode we discussed in clase (e.g., "Load Data", "Summarize by county", "Run linear regression", "Build Figure"). The methods section of the manuscript you've chosen should provide you with enough information to begin sketching this out. Don't worry if you don't know all of the steps, the goal is to get you thinking about the "mile markers" along the way to creating the figure.
